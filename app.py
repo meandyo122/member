@@ -3,6 +3,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson.objectid import ObjectId
 from flask import *
+import os
 
 url= "mongodb+srv://a0910134517:Rot123@myusers.mizc7.mongodb.net/?retryWrites=true&w=majority&appName=MyUsers"
 client=pymongo.MongoClient(url, server_api=ServerApi('1'))
@@ -83,4 +84,9 @@ def signout():
     #移除session 中的會員資訊
     del session["nickname"]
     return redirect("/")
-app.run(port=3000)
+
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Render 提供的 PORT 環境變數
+    app.run(host="0.0.0.0", port=port)
